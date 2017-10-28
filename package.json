@@ -1,0 +1,16 @@
+{
+  "fitbit": {
+    "appUUID": "6067f881-5b1c-4331-bd66-783ddb9e3f3a",
+    "appType": "app",
+    "appDisplayName": "heartbeat",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#607d8b",
+    "requestedPermissions": [
+      "access_user_profile",
+      "access_heart_rate",
+      "access_internet",
+      "run_background",
+      "access_location"
+    ]
+  }
+}
