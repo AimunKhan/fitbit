@@ -1,0 +1,21 @@
+
+//If wearer's heart rate falls below "Danger" Threshold or below "Sleeping" Threshold, send bulk messages to list of contacts until wearer is found
+// ASSUMES:
+// x has username, pronoun, and location
+// response has value of what message to send
+function SendMsg(x, response){
+    var msg;
+    var userLoc = clientLoc(x); // I don't know what this does
+    if(!response){
+        // I MIGHT BE CONCATENATING THESE WRONG I'M GONNA CHECK ON THAT
+        if(x.sleep)
+            msg = new String(x.user + " has fallen asleep at "+ x.location + ". Please check on " + x.pronoun + ".");
+        else if(x.drunk)
+            msg = new String(x.user + " has drunk more alcohol than " + x.pronoun + " should have, and requires water. " + x.pronoun + " is at " + x.location + ". Please check on " + x.pronoun + ".")
+        else if(x.critical)
+            msg = new String(x.user + " has drank too much alcohol to the point that " + x.pronoun + " heart rate is dangerously low. " + x.pronoun + " is at " + x.location + ".")
+    }
+    return msg;
+}
+
+function
