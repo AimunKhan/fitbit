@@ -1,21 +1,57 @@
 
-//If wearer's heart rate falls below "Danger" Threshold or below "Sleeping" Threshold, send bulk messages to list of contacts until wearer is found
-// ASSUMES:
+// If wearer's heart rate falls below "Danger" Threshold or below "Sleeping" Threshold, send bulk messages to list of contacts until wearer is found
 // x has username, pronoun, and location
-// response has value of what message to send
-function SendMsg(x, response){
+// x values are Arjun's responsibility
+// !!!!!!! Add more cases maybe
+
+function SendMsg(x, status){
+    var sleeping = 0;
+    var tipsy = 1;
+    var drunk = 2;
+    var veryDrunk = 3;
+    var dangerouslyDrunk = 4;
     var msg;
-    var userLoc = clientLoc(x); // I don't know what this does
-    if(!response){
-        // I MIGHT BE CONCATENATING THESE WRONG I'M GONNA CHECK ON THAT
-        if(x.sleep)
-            msg = new String(x.user + " has fallen asleep at "+ x.location + ". Please check on " + x.pronoun + ".");
-        else if(x.drunk)
-            msg = new String(x.user + " has drunk more alcohol than " + x.pronoun + " should have, and requires water. " + x.pronoun + " is at " + x.location + ". Please check on " + x.pronoun + ".")
-        else if(x.critical)
-            msg = new String(x.user + " has drank too much alcohol to the point that " + x.pronoun + " heart rate is dangerously low. " + x.pronoun + " is at " + x.location + ".")
-    }
+    if(status = sleeping)
+        msg = new String(x.user + " has fallen asleep at "+ x.location + ". Please check on " + x.pronoun + ".");
+    else if(xstatus = drunk)
+        msg = new String(x.user + " has drunk more alcohol than " + x.pronoun + " should have, and requires water. " + x.pronoun + " is at " + x.location + ". Please check on " + x.pronoun + ".")
+    else if(status = veryDrunk)
+        msg = new String(x.user + " has drank too much alcohol to the point that " + x.pronoun + " heart rate is dangerously low. " + x.pronoun + " is at " + x.location + ".")
     return msg;
 }
 
-function
+// Return average of the array after updating elements
+// arrHR[0] holds oldest value
+// Need polledHR
+function pastHR(arrHR, polledHR){
+    var sum = 0;
+    for(i = 0; i < arrHR.length; i+=1){
+        arrHR[i] = arrHR[i+1];
+        sum += arr[i];
+    }
+    arrHR[arrHR.length-1] = polledHR;
+    sum +=arr[arrHR.length-1];
+    return sum/arrHR.length;
+}
+
+// isSleeping is a variable I need from Fitbit side
+
+
+// Need to figure out how to use this function
+function calcdHR(histHR, curHR){
+    return histHR - curHR;
+}
+
+// howDrunk - returns status
+function howDrunk(dHR, isSleeping){
+    if(isSleeping) return 0;
+    else if(dHR > -10) return 1; //tipsy
+    else if(dHR > -13) return 2; //vomit
+    else return 4; //dangerouslyDrunk
+}
+
+// this is the main
+function isDrunk(){
+    return True;
+    else return False;
+}
