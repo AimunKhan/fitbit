@@ -12,11 +12,11 @@ function SendMsg(x, status){
     var dangerouslyDrunk = 4;
     var msg;
     if(status = sleeping)
-        msg = new String(x.user + " has fallen asleep at "+ x.location + ". Please check on " + x.pronoun + ".");
+        msg = new String(x.name + " has fallen asleep at "+ x.location + ". Please check on " + x.name + ".");
     else if(xstatus = drunk)
-        msg = new String(x.user + " has drunk more alcohol than " + x.pronoun + " should have, and requires water. " + x.pronoun + " is at " + x.location + ". Please check on " + x.pronoun + ".")
+        msg = new String(x.name + " has drunk more alcohol than " + x.name + " should have, and requires water. " + x.name + " is at " + x.location + ". Please check on " + x.name + ".")
     else if(status = veryDrunk)
-        msg = new String(x.user + " has drank too much alcohol to the point that " + x.pronoun + " heart rate is dangerously low. " + x.pronoun + " is at " + x.location + ".")
+        msg = new String(x.name + " has drank too much alcohol to the point that " + x.name + " heart rate is dangerously low. " + x.name + " is at " + x.location + ".")
     return msg;
 }
 
@@ -37,8 +37,8 @@ function pastHR(arrHR, polledHR){
 // isSleeping is a variable I need from Fitbit side
 
 
-// Need to figure out how to use this function
-function calcdHR(histHR, curHR){
+// Returns change in HR from original HR
+function calcDHR(histHR, curHR){
     return histHR - curHR;
 }
 
@@ -50,8 +50,33 @@ function howDrunk(dHR, isSleeping){
     else return 4; //dangerouslyDrunk
 }
 
-// this is the main
-function isDrunk(){
-    return True;
+// Returns Boolean of if he is drunk
+function isDrunk(dHR, isSleeping){
+    if((dHR < -7 && (response == 0) || isSleeping) return True;
     else return False;
+}
+
+
+/**********Main**********/
+var arrHR = [1,2,3,4,5,6]; // Fitbit needs to initialize this
+var histHR = arrHR; // Copied ONLY ONCE - this is the original data set
+response = 0;
+var isSleeping = 0; // Fitbit needs to initialize this
+var status = 0;
+var user;
+var avgHR;
+user.name = "Joe"; // Needs to be initialized by website
+user.location = 1; // Needs to be initialized by website
+
+while(1){
+    // update values
+    polledHR = updateHR(); // need to get value from Fitbit
+    avgHR = pastHR(arrHR, polledHR);
+    updateIsSleeping(); // need to get value from Fitbit
+    calcDHR(histHR, arrHR);
+    // Check if drunk
+    if(isDrunk){
+        status = howDrunk(dHR, isSleeping);
+        SendMsg(user, status);
+    }
 }
