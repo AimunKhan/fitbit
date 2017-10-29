@@ -14,7 +14,7 @@ while(1){
     polledHR = updateHR(); // need to get value from Fitbit
     avgHR = pastHR(arrHR, polledHR);
     updateIsSleeping(); // need to get value from Fitbit
-    calcDHR(histHR, avrHR);//
+    calcDHR(histHR, avrHR);
     // Check if drunk
     if(isDrunk){
         status = howDrunk(dHR, isSleeping);
